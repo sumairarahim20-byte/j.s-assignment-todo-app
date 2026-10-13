@@ -1,0 +1,227 @@
+/* =========================================
+   DAYBLOOM — custom theme on top of Bootstrap
+   Bootstrap handles the layout (grid, modal, forms).
+   This file only changes colors, spacing and details.
+   ========================================= */
+
+/* 1. Override Bootstrap's own color variables */
+:root {
+  --bs-primary: #8572e8;
+  --bs-primary-rgb: 133, 114, 232;
+  --bs-body-bg: #f8f9fc;
+  --bs-body-color: #24243a;
+  --bs-body-font-family: "Inter", system-ui, sans-serif;
+  --bs-body-font-size: 0.9rem;
+  --bs-border-color: #ececf3;
+  --bs-border-radius: 12px;
+  --bs-link-color: #705bd7;
+
+  --lavender-light: #eeebff;
+  --shadow: 0 8px 30px rgba(42, 39, 83, 0.05);
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Primary button (Bootstrap needs its button variables changed) */
+.btn-primary {
+  --bs-btn-bg: #8572e8;
+  --bs-btn-border-color: #8572e8;
+  --bs-btn-hover-bg: #705bd7;
+  --bs-btn-hover-border-color: #705bd7;
+  --bs-btn-active-bg: #6350c4;
+  --bs-btn-active-border-color: #6350c4;
+  --bs-btn-disabled-bg: #8572e8;
+  --bs-btn-disabled-border-color: #8572e8;
+  font-weight: 600;
+  padding: 0.7rem 1.2rem;
+  box-shadow: 0 5px 14px rgba(133, 114, 232, 0.2);
+}
+
+.text-primary { color: #8572e8 !important; }
+
+/* Make the main button full-width on phones */
+@media (max-width: 575.98px) {
+  #add-btn { width: 100%; }
+}
+
+/* 3. Navbar brand */
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: #fff;
+  background: var(--bs-primary);
+  border-radius: 11px;
+  box-shadow: 0 5px 12px rgba(133, 114, 232, 0.25);
+}
+
+/* 4. Cards */
+.card {
+  border-color: var(--bs-border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.tasks-card { border-radius: 22px; }
+
+.stat-card { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+
+@media (hover: hover) {
+  .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 35px rgba(42, 39, 83, 0.09);
+  }
+}
+
+.stat-number {
+  margin: 0.4rem 0 0.1rem;
+  font-size: clamp(1.6rem, 5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 5. Progress bar */
+.progress {
+  height: 7px;
+  background: #efedf8;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #a99af8, #7f6be0);
+  transition: width 0.45s ease;
+}
+
+/* 6. Forms: focus color + 16px font on phones (stops iPhone zoom) */
+.form-control:focus,
+.form-select:focus {
+  border-color: #b7aafa;
+  box-shadow: 0 0 0 3px rgba(133, 114, 232, 0.12);
+}
+
+@media (max-width: 575.98px) {
+  .form-control, .form-select { font-size: 16px; }
+}
+
+/* 7. Filter pills */
+.nav-pills {
+  --bs-nav-pills-link-active-bg: var(--lavender-light);
+  --bs-nav-pills-link-active-color: #705bd7;
+  gap: 6px;
+  scrollbar-width: thin;
+}
+
+.nav-pills .nav-link {
+  color: #85879a;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 9px;
+}
+
+.nav-pills .nav-link:hover { color: #705bd7; background: #f5f4ff; }
+
+/* 8. Task cards (created by script.js) */
+.task-card {
+  padding: 0.9rem;
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 14px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  animation: fade-up 0.3s ease both;
+}
+
+.task-card:hover {
+  border-color: #ddd6ff;
+  box-shadow: 0 5px 18px rgba(42, 39, 83, 0.05);
+}
+
+.task-card .form-check-input {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.task-card .form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.task-main { min-width: 0; }  /* lets long text wrap instead of overflowing */
+
+.task-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.task-desc {
+  margin: 0.25rem 0 0;
+  color: #85879a;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.task-card.done { background: #fcfcfe; }
+.task-card.done .task-title { color: #a0a1b0; text-decoration: line-through; }
+.task-card.done .task-desc { color: #b1b2bf; }
+
+/* Priority + due date badges */
+.tag {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  border-radius: 7px;
+}
+.tag-low { color: #338b69; background: #e8f8ef; }
+.tag-medium { color: #a16e18; background: #fff5dc; }
+.tag-high { color: #cb5656; background: #fff0f0; }
+.tag-date { color: #797b91; background: #f4f4f9; }
+.tag-overdue { color: #dc5656; background: #fff0f0; }
+
+/* Edit / delete buttons */
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: #85879a;
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  font-size: 1.1rem;
+}
+.icon-btn:hover { color: #705bd7; background: var(--lavender-light); }
+.icon-btn.del:hover { color: #dc5656; background: #fff0f0; }
+
+/* 9. Empty state */
+.empty-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  color: var(--bs-primary);
+  background: var(--lavender-light);
+  border-radius: 19px;
+  font-size: 1.6rem;
+}
+
+/* 10. Modal */
+.modal-content { border: 0; border-radius: 22px; box-shadow: 0 25px 90px rgba(36, 36, 58, 0.2); }
+
+/* 11. Animation */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
